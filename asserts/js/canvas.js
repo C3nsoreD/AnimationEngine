@@ -14,15 +14,17 @@ var renderer = new THREE.WebGLRenderer(
         canvas: document.getElementById('myCanvas'),
          antialias: true
     });
-
 myCanvas = document.getElementById('myCanvas');
-renderer.setSize($(myCanvas).width(), $(myCanvas).height());
-
+//renderer.setSize($(myCanvas).width(), $(myCanvas).height());
+renderer.setSize(300,300);
 
 //renderer.setSize(width, height);
 //The cude used to test ThreeJS application
 var geometry = new THREE.BoxGeometry(1,1,2);
-var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+var material = new THREE.MeshBasicMaterial(
+    {
+        color: 0x00ff00
+    });
 var cube = new THREE.Mesh( geometry, material);
 scene.add(cube);
 camera.position.z = 5;
@@ -32,7 +34,6 @@ camera.position.z = 5;
 //time the screne is refeshed
 function animate(){
     requestAnimationFrame(animate);
-    
     renderer.render(scene, camera);
     cube.rotation.x += 0.01;
     renderer.render( scene, camera);
