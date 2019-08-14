@@ -19,7 +19,7 @@ var homeController = require('./controller/homeController.js');
 homeController(app);
 
 //start the server
-app.listen(3000);
+app.listen(7000);
 
 //display start message to console.
-console.log('listening to port 3000');
+console.log('listening to port 7000');

@@ -4,49 +4,38 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>basic sphere</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script   src="jquery/dist/jquery.min.js"></script>
+
         
+
+        <!--adding styling to the application-->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        
+    </head>
+    <body>
+        <div class="content-box" id="thing">
+
+        </div>
+        <!--adding jqurey to the app-->
+        <script   src="jquery/dist/jquery.min.js"></script>
+
         <!--adding primary threeJS library-->
         <script src="three/build/three.js"></script>
+
+        <!--adding inflate -->
+        <script src="three/examples/js/libs/inflate.min.js"></script>
 
         <!--adding a loader to load objects from blender -->
         <script src="three/examples/js/loaders/FBXLoader.js"></script>
 
+        <!--adding the canvas js file to the application-->
+        <!-- <script src="js/canvas.js"></script> -->
+        
+        <!--API for adding objects on pages-->
+        <script src="js/ThingAPI.js"></script>
 
-    </head>
-    <body>
-        <div class="content-box">
-            <canvas id="myCanvas"></canvas>
-        </div>
+        <!--testing stuff-->
+        <script src="js/thing.js"></script>
 
-        <script>
-            //scene
-            var scene = new THREE.Scene();
-            //camera
-            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            //renderer to specific html element
-            var renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas'), antialias: true});
-            
-            myCanvas = document.getElementById('myCanvas');
-            renderer.setSize($(myCanvas).width(), $(myCanvas).height());
-           // renderer.setSize(width, height);
-            //The cude used to test ThreeJS application
-            var geometry = new THREE.BoxGeometry(1,1,2);
-            var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-            var cube = new THREE.Mesh( geometry, material);
-            scene.add(cube);
-            camera.position.z = 5;
-            //next we have to call the reneder animation to loop the will cause rendering of the animation every 
-            //time the screne is refeshed
-            function animate(){
-                requestAnimationFrame(animate);
-                
-                renderer.render(scene, camera);
-                cube.rotation.x += 0.01;
-                renderer.render( scene, camera);
-            }
-            animate();
-        </script>
+        
     </body>
 </html>
