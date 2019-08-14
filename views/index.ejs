@@ -12,20 +12,30 @@
         
     </head>
     <body>
-        <div class="content-box">
-            <canvas id="myCanvas"></canvas>
+        <div class="content-box" id="thing">
+
         </div>
+        <!--adding jqurey to the app-->
+        <script   src="jquery/dist/jquery.min.js"></script>
 
         <!--adding primary threeJS library-->
         <script src="three/build/three.js"></script>
 
+        <!--adding inflate -->
+        <script src="three/examples/js/libs/inflate.min.js"></script>
+
         <!--adding a loader to load objects from blender -->
         <script src="three/examples/js/loaders/FBXLoader.js"></script>
 
-        <!--adding jqurey to the app-->
-        <script   src="jquery/dist/jquery.min.js"></script>
-
         <!--adding the canvas js file to the application-->
-        <script src="js/canvas.js"></script>
+        <!-- <script src="js/canvas.js"></script> -->
+        
+        <!--API for adding objects on pages-->
+        <script src="js/ThingAPI.js"></script>
+
+        <!--testing stuff-->
+        <script src="js/thing.js"></script>
+
+        
     </body>
 </html>
