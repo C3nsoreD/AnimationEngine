@@ -4,3 +4,7 @@
     width: 100%;
     height: 90vh;
 }
+
+canvas{
+    touch-action: none;
+}
