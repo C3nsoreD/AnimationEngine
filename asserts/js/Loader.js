@@ -11,10 +11,8 @@ function Loader(filepath){
 
         this.object = object;
 
-        console.log(object);
-
         //update the position of the object
-        object.position.y = 0;
+        this.object.position.set(0,0,0);
        
         //create instance varible for object called mixer and assign animation mixter to it
         this.object.mixer = new THREE.AnimationMixer(object);
