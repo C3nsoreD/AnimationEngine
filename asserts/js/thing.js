@@ -1,3 +1,3 @@
-
-var thing = new Thing('fbx/Sphere.fbx',500,500,'thing');
+var thing = new Thing('fbx/Sphere.fbx',$('#thing').width(),$('#thing').height(),'thing');
 thing.animate();
+
