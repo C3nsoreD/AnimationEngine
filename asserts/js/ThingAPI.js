@@ -52,13 +52,13 @@ function Thing(filepath, width, height, container){
 
 
     //adding orbital controls to change the orientation of the camera
-    var controls = new THREE.OrbitControls(this.camera);
+    var controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
     controls.target.set(0, 0, 0);
     controls.enablePan = false; 
     controls.enableZoom = false;     
     controls.update();
 
-   // function to start the animation loop
+   //function to start the animation loop
 	var animate = function() {
 		//this updates the animations
 		for (var i = 0; i < this.mixers.length; i++) {
