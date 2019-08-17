@@ -64,8 +64,9 @@ function Thing(filepath, width, height, container){
     //https://github.com/mrdoob/three.js/issues/10373
     var controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
     controls.target.set(0, 0, 0);
-    controls.enablePan = false; 
-    controls.enableZoom = false;     
+    controls.maxPolarAngle = Math.PI * 0.5;
+	controls.minDistance = 300;
+	controls.maxDistance = 500;     
     controls.update();
 
     //function to start the animation loop
