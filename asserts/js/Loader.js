@@ -1,12 +1,14 @@
 function Loader(filepath){
-
+    
+    //animation mixer is a player for animations on a certain object
+    //each object has it's own mixer, group is a container for each object
     this.mixers = [];
-    this.actions = [];
     this.group = new THREE.Group();
 
     //load the fbx file from the obtained place
     new THREE.FBXLoader().load(filepath, function(object){
 
+        //store object to be accessed later
         this.object = object;
 
         //update the position of the object
@@ -27,7 +29,9 @@ function Loader(filepath){
             }
         }
 
-        //traverse through the object
+        //traverse through all items in the object 
+        //find item with type mesh  
+        //set the mesh properties 
         this.object.traverse(function(child){
             if (child.isMesh) {
                 child.castShadow = true;
@@ -43,6 +47,8 @@ function Loader(filepath){
         console.log(err);
     });
 
+    //return animation mixer
+    //return group containing object
     return {
         mixers: this.mixers,
         group : this.group
