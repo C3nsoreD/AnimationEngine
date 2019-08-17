@@ -8,6 +8,14 @@ function Thing(filepath, width, height, container){
     //dom element properties
     this.width = width;
     this.height = height;
+    this.container = document.getElementById(container);
+
+    //create stats and set it properties
+    this.stats = new Stats();
+    this.stats.setMode(0);
+    this.stats.domElement.style.position = 'absolute';
+    this.stats.domElement.style.left = '0';
+    this.stats.domElement.style.top = '0';
 
     //creating threeJS clock
     this.clock = new THREE.Clock();
@@ -20,12 +28,12 @@ function Thing(filepath, width, height, container){
     this.scene.add(ambientLight);
 
     //creating camera for the scene
-    //set its position
     //creating a point light and add it to the camera
+    //set camera position
     //then add the camera to the scene
     this.camera = new THREE.PerspectiveCamera(45, (this.width / this.height), 1,1000);
-    this.camera.position.set( 0, 0, 300 );
     var pointLight = new THREE.PointLight(0xFFFFFF,1.2);
+    this.camera.position.set( 0, 0, 300 );
     this.camera.add(pointLight);
     this.scene.add(this.camera);
 
@@ -40,8 +48,9 @@ function Thing(filepath, width, height, container){
     this.mixers = fbxObject.mixers;
     this.scene.add(fbxObject.group);
  
-    //add a container to render the dom element
-    document.getElementById(container).appendChild(this.renderer.domElement);
+    //add renderer and stats to this containter
+    this.container.appendChild(this.renderer.domElement);
+    this.container.appendChild(this.stats.dom);
 
     //add resizing to the dom element
     new ResizeSensor(jQuery('#'+container), function(){ 
@@ -50,8 +59,9 @@ function Thing(filepath, width, height, container){
         this.renderer.setSize($('#'+container).width(), $('#'+container).height());
     }.bind(this));
 
-
-    //adding orbital controls to change the orientation of the camera
+    //orbital controls allows us to change the orientation of the object
+    //pan zoom is disable to prevent pursive control bug 
+    //https://github.com/mrdoob/three.js/issues/10373
     var controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
     controls.target.set(0, 0, 0);
     controls.enablePan = false; 
@@ -63,13 +73,17 @@ function Thing(filepath, width, height, container){
 		//this updates the animations
 		for (var i = 0; i < this.mixers.length; i++) {
 			this.mixers[i].update(this.clock.getDelta());
-		}
-		// draw
-		this.renderer.render(this.scene, this.camera);			
-		requestAnimationFrame(animate); //a safer way to call the animation function.
+        }
+        
+        //render the scene and the camera 
+        //recursivly call teh animate funcation
+        //update the stats element
+        this.renderer.render(this.scene, this.camera);	
+        requestAnimationFrame(animate); 
+        this.stats.update();
 	}.bind(this);
 
-    //returning functions created inside the think function
+    //returning functions created inside the thing function
     return {
         animate: animate //return animate function
     }
