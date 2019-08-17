@@ -58,7 +58,7 @@ function Thing(filepath, width, height, container){
     controls.enableZoom = false;     
     controls.update();
 
-   //function to start the animation loop
+    //function to start the animation loop
 	var animate = function() {
 		//this updates the animations
 		for (var i = 0; i < this.mixers.length; i++) {
