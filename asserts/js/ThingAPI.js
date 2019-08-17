@@ -38,8 +38,8 @@ function Thing(filepath, width, height, container){
     //get the fbx Object with its mixture and add it to the scene.
     var fbxObject = new Loader(filepath);
     this.mixers = fbxObject.mixers;
-    this.scene.add(fbxObject.scene);
-
+    this.scene.add(fbxObject.group);
+ 
     //add a container to render the dom element
     document.getElementById(container).appendChild(this.renderer.domElement);
 

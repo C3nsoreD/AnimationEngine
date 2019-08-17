@@ -1,10 +1,8 @@
 function Loader(filepath){
 
-    this.object = null;
     this.mixers = [];
     this.actions = [];
-
-    this.scene = new THREE.Scene();
+    this.group = new THREE.Group();
 
     //load the fbx file from the obtained place
     new THREE.FBXLoader().load(filepath, function(object){
@@ -22,7 +20,6 @@ function Loader(filepath){
         //prepare all the animation action for playing 
         for(var i = 0; i < this.object.animations.length; i++){
             var action = this.object.mixer.clipAction(this.object.animations[i]);
-            this.actions.push(action);
             action.play();
 
             if(i){
@@ -39,16 +36,15 @@ function Loader(filepath){
             }	
         }.bind(this));
 
-        //add the object to the scene
-        this.scene.add(object);
+        //add the object to the group
+        this.group.add(this.object);
 
     }.bind(this), null, function(err){
         console.log(err);
     });
 
     return {
-        object: this.object,
         mixers: this.mixers,
-        scene : this.scene
+        group : this.group
     }
 }
