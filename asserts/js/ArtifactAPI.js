@@ -1,4 +1,4 @@
-function Thing(filepath, width, height, container){
+function Artifact(filepath, width, height, container){
     //thing properies 
     this.mixers = [];
     this.actions = [];
