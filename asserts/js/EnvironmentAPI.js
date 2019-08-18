@@ -1,4 +1,4 @@
-function Artifact(filepath, width, height, container){
+function Environment(filepath, width, height, container){
     //thing properies 
     this.mixers = [];
     this.actions = [];
@@ -44,7 +44,7 @@ function Artifact(filepath, width, height, container){
     this.renderer.setSize(this.width, this.height );
 
     //get the fbx Object with its mixture and add it to the scene.
-    var fbxObject = new Loader(filepath);
+    var fbxObject = new Artifact(filepath);
     this.mixers = fbxObject.mixers;
     this.scene.add(fbxObject.group);
  
@@ -70,7 +70,7 @@ function Artifact(filepath, width, height, container){
     controls.update();
 
     //function to start the animation loop
-	var animate = function() {
+	var run = function() {
 		//this updates the animations
 		for (var i = 0; i < this.mixers.length; i++) {
 			this.mixers[i].update(this.clock.getDelta());
@@ -80,12 +80,12 @@ function Artifact(filepath, width, height, container){
         //recursivly call teh animate funcation
         //update the stats element
         this.renderer.render(this.scene, this.camera);	
-        requestAnimationFrame(animate); 
+        requestAnimationFrame(run); 
         this.stats.update();
 	}.bind(this);
 
     //returning functions created inside the thing function
     return {
-        animate: animate //return animate function
+        run: run //return animate function
     }
 }
