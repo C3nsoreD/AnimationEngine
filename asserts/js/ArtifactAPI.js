@@ -65,8 +65,8 @@ function Thing(filepath, width, height, container){
     var controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
     controls.target.set(0, 0, 0);
     controls.maxPolarAngle = Math.PI * 0.5;
-	controls.minDistance = 300;
-	controls.maxDistance = 500;     
+	controls.minDistance = 200;
+	controls.maxDistance = 600;     
     controls.update();
 
     //function to start the animation loop

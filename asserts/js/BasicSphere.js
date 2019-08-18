@@ -1,13 +1,13 @@
 
 var object = 'fbx/Sphere.fbx';
-var container = 'thing';
+var container = 'basicSphere';
 
-var thing = new Thing( object, 
+var basicSphere = new Thing( object, 
     $('#'+container).width(),
     $('#'+container).height(),
     container);
 
-thing.animate();
+basicSphere.animate();
 
 
 
