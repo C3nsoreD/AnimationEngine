@@ -3,25 +3,22 @@ function Artifact(filepath){
     //animation mixer is a player for animations on a certain object
     //each object has it's own mixer, group is a container for each object
     this.mixers = [];
-    this.group = new THREE.Group();
+    this.object = new THREE.Object3D();
 
     //load the fbx file from the obtained place
     new THREE.FBXLoader().load(filepath, function(object){
 
-        //store object to be accessed later
-        this.object = object;
-
         //update the position of the object
-        this.object.position.set(0,0,0);
+        object.position.set(0,0,0);
        
         //create instance varible for object called mixer and assign animation mixter to it
-        this.object.mixer = new THREE.AnimationMixer(object);
-        this.object.mixer.timeScale = 1;
-        this.mixers.push(this.object.mixer);
+        object.mixer = new THREE.AnimationMixer(object);
+        object.mixer.timeScale = 1;
+        this.mixers.push(object.mixer);
 
         //prepare all the animation action for playing 
-        for(var i = 0; i < this.object.animations.length; i++){
-            var action = this.object.mixer.clipAction(this.object.animations[i]);
+        for(var i = 0; i < object.animations.length; i++){
+            var action = object.mixer.clipAction(object.animations[i]);
             action.play();
 
             if(i){
@@ -32,7 +29,7 @@ function Artifact(filepath){
         //traverse through all items in the object 
         //find item with type mesh  
         //set the mesh properties 
-        this.object.traverse(function(child){
+        object.traverse(function(child){
             if (child.isMesh) {
                 child.castShadow = true;
                 child.receiveShadow = true;
@@ -40,8 +37,8 @@ function Artifact(filepath){
             }	
         }.bind(this));
 
-        //add the object to the group
-        this.group.add(this.object);
+        //add the object to the global objec varible 
+        this.object.add(object);
 
     }.bind(this), null, function(err){
         console.log(err);
@@ -51,6 +48,6 @@ function Artifact(filepath){
     //return group containing object
     return {
         mixers: this.mixers,
-        group : this.group
+        object : this.object
     }
 }

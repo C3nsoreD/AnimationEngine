@@ -46,7 +46,7 @@ function Environment(filepath, width, height, container){
     //get the fbx Object with its mixture and add it to the scene.
     var fbxObject = new Artifact(filepath);
     this.mixers = fbxObject.mixers;
-    this.scene.add(fbxObject.group);
+    this.scene.add(fbxObject.object);
  
     //add renderer and stats to this containter
     this.container.appendChild(this.renderer.domElement);
