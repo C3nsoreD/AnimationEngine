@@ -47,7 +47,7 @@ function Environment(filepath, width, height, container){
     var fbxObject = new Artifact(filepath);
     this.mixers = fbxObject.mixers;
     this.scene.add(fbxObject.object);
- 
+   
     //add renderer and stats to this containter
     this.container.appendChild(this.renderer.domElement);
     this.container.appendChild(this.stats.dom);
