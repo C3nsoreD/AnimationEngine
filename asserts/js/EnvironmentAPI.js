@@ -44,10 +44,11 @@ function Environment(filepath, width, height, container){
     this.renderer.setSize(this.width, this.height );
 
     //get the fbx Object with its mixture and add it to the scene.
-    var fbxObject = new Artifact(filepath);
-    this.mixers = fbxObject.mixers;
-    this.scene.add(fbxObject.object);
-   
+    this.fbxObject = new Artifact(filepath,0);
+    this.mixers = this.fbxObject.mixers;
+    this.scene.add(this.fbxObject.object);
+    this.fbxObject.loadAnimator(1);
+    
     //add renderer and stats to this containter
     this.container.appendChild(this.renderer.domElement);
     this.container.appendChild(this.stats.dom);
