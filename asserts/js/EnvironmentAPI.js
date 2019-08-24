@@ -44,8 +44,9 @@ function Environment(filepath, width, height, container){
     this.renderer.setSize(this.width, this.height );
 
     //get the fbx Object with its mixture and add it to the scene.
-    this.fbxObject = new Artifact(filepath,0);
+    this.fbxObject = new Artifact(filepath);
     this.mixers = this.fbxObject.mixers;
+    this.object = this.fbxObject.object;
     this.scene.add(this.fbxObject.object);
     this.fbxObject.loadAnimator(1);
     
@@ -83,10 +84,39 @@ function Environment(filepath, width, height, container){
         this.renderer.render(this.scene, this.camera);	
         requestAnimationFrame(run); 
         this.stats.update();
-	}.bind(this);
+    }.bind(this);
+    
+    // Swap animation action to the provided index in the actions list
+	var swapAnimationAction = function(index) {
+
+        var action = this.object.children[0].mixer;
+        action.stopAllAction();
+
+        if(index < this.object.children[0].animations.length){
+			var action = this.object.children[0].mixer.clipAction( this.object.children[0].animations[ index ] );								
+			action.play(); 
+        }else if(index < 0 || index >= this.object.children[0].animations.length){
+			var action = this.object.children[0].mixer.clipAction( this.object.children[0].animations[ 0 ] );							
+			action.play(); 
+        }
+    }.bind(this);
+
+    // Update learning metrics, and change associated avatar factors
+	var update = function(data_obj) {
+		
+		// update go to new animation syquence.
+		if(data_obj.animation || data_obj.animation === 0){
+			this.animation = data_obj.animation;
+			swapAnimationAction(this.animation);
+		}
+		
+    }.bind(this);
+    
+    
 
     //returning functions created inside the thing function
     return {
-        run: run //return animate function
+        run: run, //return animate function
+        update: update
     }
 }
