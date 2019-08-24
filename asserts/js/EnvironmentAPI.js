@@ -1,4 +1,4 @@
-function Thing(filepath, width, height, container){
+function Environment(filepath, width, height, container){
     //thing properies 
     this.mixers = [];
     this.actions = [];
@@ -44,10 +44,12 @@ function Thing(filepath, width, height, container){
     this.renderer.setSize(this.width, this.height );
 
     //get the fbx Object with its mixture and add it to the scene.
-    var fbxObject = new Loader(filepath);
-    this.mixers = fbxObject.mixers;
-    this.scene.add(fbxObject.group);
- 
+    this.fbxObject = new Artifact(filepath);
+    this.mixers = this.fbxObject.mixers;
+    this.object = this.fbxObject.object;
+    this.scene.add(this.fbxObject.object);
+    this.fbxObject.loadAnimator(1);
+    
     //add renderer and stats to this containter
     this.container.appendChild(this.renderer.domElement);
     this.container.appendChild(this.stats.dom);
@@ -64,12 +66,13 @@ function Thing(filepath, width, height, container){
     //https://github.com/mrdoob/three.js/issues/10373
     var controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
     controls.target.set(0, 0, 0);
-    controls.enablePan = false; 
-    controls.enableZoom = false;     
+    controls.maxPolarAngle = Math.PI * 0.5;
+	controls.minDistance = 200;
+	controls.maxDistance = 600;     
     controls.update();
 
     //function to start the animation loop
-	var animate = function() {
+	var run = function() {
 		//this updates the animations
 		for (var i = 0; i < this.mixers.length; i++) {
 			this.mixers[i].update(this.clock.getDelta());
@@ -79,12 +82,41 @@ function Thing(filepath, width, height, container){
         //recursivly call teh animate funcation
         //update the stats element
         this.renderer.render(this.scene, this.camera);	
-        requestAnimationFrame(animate); 
+        requestAnimationFrame(run); 
         this.stats.update();
-	}.bind(this);
+    }.bind(this);
+    
+    // Swap animation action to the provided index in the actions list
+	var swapAnimationAction = function(index) {
+
+        var action = this.object.children[0].mixer;
+        action.stopAllAction();
+
+        if(index < this.object.children[0].animations.length){
+			var action = this.object.children[0].mixer.clipAction( this.object.children[0].animations[ index ] );								
+			action.play(); 
+        }else if(index < 0 || index >= this.object.children[0].animations.length){
+			var action = this.object.children[0].mixer.clipAction( this.object.children[0].animations[ 0 ] );							
+			action.play(); 
+        }
+    }.bind(this);
+
+    // Update learning metrics, and change associated avatar factors
+	var update = function(data_obj) {
+		
+		// update go to new animation syquence.
+		if(data_obj.animation || data_obj.animation === 0){
+			this.animation = data_obj.animation;
+			swapAnimationAction(this.animation);
+		}
+		
+    }.bind(this);
+    
+    
 
     //returning functions created inside the thing function
     return {
-        animate: animate //return animate function
+        run: run, //return animate function
+        update: update
     }
 }
