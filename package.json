@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "dat.gui": "^0.7.6",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "jquery": "^3.4.1",
