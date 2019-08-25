@@ -1,13 +1,17 @@
 function Environment(filepath, width, height, container){
-    //thing properies 
+    //Artifact properies 
     this.mixers = [];
-    this.actions = [];
-    this.textures = [];
     this.object = null;
+    this.actions = [];
+    this.activeAction = 0;
+
+    //creating threeJS clock
+    this.clock = new THREE.Clock();
+
+    //creating animation scene.
+    this.scene = new THREE.Scene();
 
     //dom element properties
-    this.width = width;
-    this.height = height;
     this.container = document.getElementById(container);
 
     //create stats and set it properties
@@ -16,12 +20,7 @@ function Environment(filepath, width, height, container){
     this.stats.domElement.style.position = 'absolute';
     this.stats.domElement.style.left = '0';
     this.stats.domElement.style.top = '0';
-
-    //creating threeJS clock
-    this.clock = new THREE.Clock();
-
-    //creating animation scene.
-    this.scene = new THREE.Scene();
+    this.container.appendChild(this.stats.dom);
 
     //create light for the scene and add it to the scene
     var ambientLight = new THREE.AmbientLight(0xCCCCCC, 0.6);
@@ -31,7 +30,7 @@ function Environment(filepath, width, height, container){
     //creating a point light and add it to the camera
     //set camera position
     //then add the camera to the scene
-    this.camera = new THREE.PerspectiveCamera(45, (this.width / this.height), 1,1000);
+    this.camera = new THREE.PerspectiveCamera(45, (width / height), 1,2000);
     var pointLight = new THREE.PointLight(0xFFFFFF,1.2);
     this.camera.position.set( 0, 0, 300 );
     this.camera.add(pointLight);
@@ -41,19 +40,16 @@ function Environment(filepath, width, height, container){
     //set the pixel ratio and the size of the renderer
     this.renderer = new THREE.WebGLRenderer({ antialis: true, alpha: true});
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(this.width, this.height );
+    this.renderer.setSize(width, height );
+    this.container.appendChild(this.renderer.domElement);
 
     //get the fbx Object with its mixture and add it to the scene.
     this.fbxObject = new Artifact(filepath);
     this.mixers = this.fbxObject.mixers;
     this.object = this.fbxObject.object;
+    this.actions = this.fbxObject.actions;
     this.scene.add(this.fbxObject.object);
-    this.fbxObject.loadAnimator(1);
     
-    //add renderer and stats to this containter
-    this.container.appendChild(this.renderer.domElement);
-    this.container.appendChild(this.stats.dom);
-
     //add resizing to the dom element
     new ResizeSensor(jQuery('#'+container), function(){ 
         this.camera.aspect = $('#'+container).width() / $('#'+container).height();
@@ -88,17 +84,23 @@ function Environment(filepath, width, height, container){
     
     // Swap animation action to the provided index in the actions list
 	var swapAnimationAction = function(index) {
-
+        this.activeAction = index;
         var action = this.object.children[0].mixer;
         action.stopAllAction();
 
         if(index < this.object.children[0].animations.length){
-			var action = this.object.children[0].mixer.clipAction( this.object.children[0].animations[ index ] );								
-			action.play(); 
+			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ index ] ).play(); 
         }else if(index < 0 || index >= this.object.children[0].animations.length){
-			var action = this.object.children[0].mixer.clipAction( this.object.children[0].animations[ 0 ] );							
-			action.play(); 
+			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ 0 ] ).play(); 
         }
+    }.bind(this);
+
+    var pauseAnimation = function(){
+        this.actions[this.activeAction].paused = true;
+    }.bind(this);
+
+    var resumeAnimation = function(){
+        this.actions[this.activeAction].paused = false;
     }.bind(this);
 
     // Update learning metrics, and change associated avatar factors
@@ -111,12 +113,12 @@ function Environment(filepath, width, height, container){
 		}
 		
     }.bind(this);
-    
-    
 
     //returning functions created inside the thing function
     return {
         run: run, //return animate function
-        update: update
+        update: update,
+        pauseAnimation: pauseAnimation,
+        resumeAnimation: resumeAnimation
     }
 }
