@@ -89,9 +89,9 @@ function Environment(filepath, width, height, container){
         action.stopAllAction();
 
         if(index < this.object.children[0].animations.length){
-			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ index ] ).play(); 
+			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ index ] ).fadeIn(1.5).play(); 
         }else if(index < 0 || index >= this.object.children[0].animations.length){
-			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ 0 ] ).play(); 
+			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ 0 ] ).fadeIn(1.5).play(); 
         }
     }.bind(this);
 
