@@ -2,7 +2,6 @@
 var artifact = 'fbx/Sphere.fbx';
 var container = 'basicSphereEnv';
 var datContainer = '.datGUI';
-var wireActive = false;
 
 var textures = [
     'texture/bluecrack.jpg',
@@ -57,13 +56,11 @@ datGUI.add(params, 'paused').onFinishChange(function(){
 }); 
 
 
-//if(wireActive == true){
-    //adding the wireframe option
-    datGUI.add(params, 'wireframe').onFinishChange(function(){
-        basicSphereEnv.update({texture : params.texture});
-        basicSphereEnv.update({wireframe : params.wireframe});   
-    });
-//}
+//adding the wireframe option
+datGUI.add(params, 'wireframe').onFinishChange(function(){
+    basicSphereEnv.update({texture : params.texture});
+    basicSphereEnv.update({wireframe : params.wireframe});   
+});
 
 
 //add datGUI to the dom Element
