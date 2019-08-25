@@ -8,3 +8,8 @@
 canvas{
     touch-action: none;
 }
+
+.datGUI{
+    position: absolute;
+    right: 0px;
+}
