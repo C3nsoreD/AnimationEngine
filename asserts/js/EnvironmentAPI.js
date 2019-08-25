@@ -95,6 +95,24 @@ function Environment(filepath, textures, width, height, container){
         }
     }.bind(this);
 
+    //update both the texture on the mesh and the wireframe value
+    var updateMesh = function(texture, wireframe){
+        this.object.children[0].traverse(function(child){
+            if(child.isMesh){
+                child.material = new THREE.MeshPhongMaterial({
+                    map : new THREE.TextureLoader().load(textures[texture]),
+                    displacementMap: new THREE.TextureLoader().load(textures[texture]),
+                    displacementScale: 0.1,
+                    normalMap: new THREE.TextureLoader().load(textures[texture]),
+                    wireframe: wireframe,
+                    skinning: true,
+                    shininess: 100,
+                    emissiveIntensity: 1
+                })
+            }
+        }.bind(this));;
+    }.bind(this);
+
     var pauseAnimation = function(){
         this.actions[this.activeAction].paused = true;
     }.bind(this);
@@ -118,38 +136,12 @@ function Environment(filepath, textures, width, height, container){
         // update the texture 
         if(data_obj.texture || data_obj.texture === 0){
             this.texture = data_obj.texture;
-            this.object.children[0].traverse(function(child){
-                if(child.isMesh){
-                    child.material = new THREE.MeshPhongMaterial({
-                        map : new THREE.TextureLoader().load(textures[this.texture]),
-                        displacementMap: new THREE.TextureLoader().load(textures[this.texture]),
-                        displacementScale: 0.1,
-                        normalMap: new THREE.TextureLoader().load(textures[this.texture]),
-                        wireframe: this.wireframe,
-                        skinning: true,
-                        shininess: 100,
-                        emissiveIntensity: 1
-                    })
-                }
-            }.bind(this));
+            updateMesh(this.texture, this.wireframe);
         }
 
         if(data_obj.wireframe || data_obj.wireframe == false){
             this.wireframe = data_obj.wireframe;
-            this.object.children[0].traverse(function(child){
-                if(child.isMesh){
-                    child.material = new THREE.MeshPhongMaterial({
-                        map : new THREE.TextureLoader().load(textures[this.texture]),
-                        displacementMap: new THREE.TextureLoader().load(textures[this.texture]),
-                        displacementScale: 0.1,
-                        normalMap: new THREE.TextureLoader().load(textures[this.texture]),
-                        wireframe: this.wireframe,
-                        skinning: true,
-                        shininess: 100,
-                        emissiveIntensity: 1
-                    })
-                }
-            }.bind(this));
+            updateMesh(this.texture, this.wireframe);
         }
 		
     }.bind(this);
