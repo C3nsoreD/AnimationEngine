@@ -1,4 +1,4 @@
-function Environment(filepath, width, height, container){
+function Environment(filepath, textures, width, height, container){
     //Artifact properies 
     this.mixers = [];
     this.object = null;
@@ -89,10 +89,28 @@ function Environment(filepath, width, height, container){
         action.stopAllAction();
 
         if(index < this.object.children[0].animations.length){
-			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ index ] ).play(); 
+			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ index ] ).fadeIn(0.3).play(); 
         }else if(index < 0 || index >= this.object.children[0].animations.length){
-			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ 0 ] ).play(); 
+			this.object.children[0].mixer.clipAction( this.object.children[0].animations[ 0 ] ).fadeIn(0.3).play(); 
         }
+    }.bind(this);
+
+    //update both the texture on the mesh and the wireframe value
+    var updateMesh = function(texture, wireframe){
+        this.object.children[0].traverse(function(child){
+            if(child.isMesh){
+                child.material = new THREE.MeshPhongMaterial({
+                    map : new THREE.TextureLoader().load(textures[texture]),
+                    displacementMap: new THREE.TextureLoader().load(textures[texture]),
+                    displacementScale: 0.1,
+                    normalMap: new THREE.TextureLoader().load(textures[texture]),
+                    wireframe: wireframe,
+                    skinning: true,
+                    shininess: 100,
+                    emissiveIntensity: 1
+                })
+            }
+        }.bind(this));;
     }.bind(this);
 
     var pauseAnimation = function(){
@@ -105,12 +123,26 @@ function Environment(filepath, width, height, container){
 
     // Update learning metrics, and change associated avatar factors
 	var update = function(data_obj) {
-		
+        this.animation; 
+        this.texture ;
+        this.wireframe ;
+
 		// update go to new animation syquence.
 		if(data_obj.animation || data_obj.animation === 0){
 			this.animation = data_obj.animation;
 			swapAnimationAction(this.animation);
-		}
+        }
+        
+        // update the texture 
+        if(data_obj.texture || data_obj.texture === 0){
+            this.texture = data_obj.texture;
+            updateMesh(this.texture, this.wireframe);
+        }
+
+        if(data_obj.wireframe || data_obj.wireframe == false){
+            this.wireframe = data_obj.wireframe;
+            updateMesh(this.texture, this.wireframe);
+        }
 		
     }.bind(this);
 
