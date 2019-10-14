@@ -1,4 +1,4 @@
-function Environment(filepath, textures, width, height, container,x,y,z){
+function Environment(artifacts, textures, width, height, container,x,y,z){
     //Artifact properies 
     this.mixers = [];
     this.object = null;
@@ -44,7 +44,7 @@ function Environment(filepath, textures, width, height, container,x,y,z){
     this.container.appendChild(this.renderer.domElement);
 
     //get the fbx Object with its mixture and add it to the scene.
-    this.fbxObject = new Artifact(filepath,x,y,z);
+    this.fbxObject = new Artifact(artifacts[0],x,y,z);
     this.mixers = this.fbxObject.mixers;
     this.object = this.fbxObject.object;
     this.actions = this.fbxObject.actions;
@@ -110,7 +110,7 @@ function Environment(filepath, textures, width, height, container,x,y,z){
                     emissiveIntensity: 1
                 })
             }
-        }.bind(this));;
+        }.bind(this));
     }.bind(this);
 
     var pauseAnimation = function(){
@@ -146,11 +146,29 @@ function Environment(filepath, textures, width, height, container,x,y,z){
 		
     }.bind(this);
 
+    var swapAvatar = function(value){
+		this.scene.remove(this.object);
+
+		//reset previous values
+		this.mixers = [];
+		this.actions = [];
+		//this.textures = [];
+
+		//add new avatar
+		//get the fbx Object with its mixture and add it to the scene.
+        this.fbxObject = new Artifact(artifacts[value],x,y,z);
+        this.mixers = this.fbxObject.mixers;
+        this.object = this.fbxObject.object;
+        this.actions = this.fbxObject.actions;
+        this.scene.add(this.fbxObject.object);
+
+	}.bind(this);
+
     var clearAll = function(){
         clearThree(this.object);
-      }.bind(this);
-  
-      var clearThree = function(obj){
+    }.bind(this);
+    
+    var clearThree = function(obj){
         while(obj.children.length > 0){
           clearThree(obj.children[0])
           obj.remove(obj.children[0]);
@@ -158,8 +176,8 @@ function Environment(filepath, textures, width, height, container,x,y,z){
         if(obj.geometry) obj.geometry.dispose()
         if(obj.material) obj.material.dispose()
         if(obj.texture) obj.texture.dispose()
-      }.bind(this);
-  
+    }.bind(this);
+    
 
     //returning functions created inside the thing function
     return {
@@ -167,6 +185,7 @@ function Environment(filepath, textures, width, height, container,x,y,z){
         update: update,
         pauseAnimation: pauseAnimation,
         resumeAnimation: resumeAnimation,
-        clearAll : clearAll
+        clearAll : clearAll,
+        swapAvatar : swapAvatar
     }
 }
