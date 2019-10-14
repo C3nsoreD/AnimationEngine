@@ -1,5 +1,5 @@
 
-var artifact = 'fbx/Sphere.fbx';
+var artifact = 'fbx/DragonFinal.fbx';
 var container = 'basicSphereEnv';
 var datContainer = '.datGUI';
 
@@ -23,7 +23,7 @@ var basicSphereEnv = new Environment(
     textures, 
     $('#'+container).width(),
     $('#'+container).height(),
-    container);
+    container,0,-70,0);
 
 //run the environment.
 basicSphereEnv.run();
@@ -44,7 +44,7 @@ datGUI.add(params, 'animation').min(0).max(1).step(1).onFinishChange(function(){
 //adding the texture slider
 datGUI.add(params, 'texture').min(0).max(7).step(1).onFinishChange(function(){
     basicSphereEnv.update({texture : params.texture});
-    wireActive = true;
+    //wireActive = true;
 });
 
 //adding the pause button

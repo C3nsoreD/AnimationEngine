@@ -1,4 +1,4 @@
-function Environment(filepath, textures, width, height, container){
+function Environment(filepath, textures, width, height, container,x,y,z){
     //Artifact properies 
     this.mixers = [];
     this.object = null;
@@ -44,7 +44,7 @@ function Environment(filepath, textures, width, height, container){
     this.container.appendChild(this.renderer.domElement);
 
     //get the fbx Object with its mixture and add it to the scene.
-    this.fbxObject = new Artifact(filepath);
+    this.fbxObject = new Artifact(filepath,x,y,z);
     this.mixers = this.fbxObject.mixers;
     this.object = this.fbxObject.object;
     this.actions = this.fbxObject.actions;
@@ -146,11 +146,27 @@ function Environment(filepath, textures, width, height, container){
 		
     }.bind(this);
 
+    var clearAll = function(){
+        clearThree(this.object);
+      }.bind(this);
+  
+      var clearThree = function(obj){
+        while(obj.children.length > 0){
+          clearThree(obj.children[0])
+          obj.remove(obj.children[0]);
+        }
+        if(obj.geometry) obj.geometry.dispose()
+        if(obj.material) obj.material.dispose()
+        if(obj.texture) obj.texture.dispose()
+      }.bind(this);
+  
+
     //returning functions created inside the thing function
     return {
         run: run, //return animate function
         update: update,
         pauseAnimation: pauseAnimation,
-        resumeAnimation: resumeAnimation
+        resumeAnimation: resumeAnimation,
+        clearAll : clearAll
     }
 }

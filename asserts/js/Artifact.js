@@ -1,4 +1,4 @@
-function Artifact(filepath){
+function Artifact(filepath, x,y,z){
 
     //animation mixer is a player for animations on a certain object
     //each object has it's own mixer, group is a container for each object
@@ -9,7 +9,7 @@ function Artifact(filepath){
     //load the fbx file from the obtained place
     new THREE.FBXLoader().load(filepath,  function(object){
         //update the position of the object
-        object.position.set(0,0,0);
+        object.position.set(x,y,z);
    
         //create instance varible for object called mixer and assign animation mixter to it
         object.mixer = new THREE.AnimationMixer(object);
