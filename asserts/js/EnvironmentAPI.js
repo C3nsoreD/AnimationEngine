@@ -152,7 +152,6 @@ function Environment(artifacts, textures, width, height, container,x,y,z){
 		//reset previous values
 		this.mixers = [];
 		this.actions = [];
-		//this.textures = [];
 
 		//add new avatar
 		//get the fbx Object with its mixture and add it to the scene.
