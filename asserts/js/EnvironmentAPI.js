@@ -52,6 +52,8 @@ function Environment(artifacts, textures, width, height, container,x,y,z){
     
     //add resizing to the dom element
     new ResizeSensor(jQuery('#'+container), function(){ 
+        //using width and height variable placed at the top prevents resizing the screen.
+        //this method only works with the provided container variable
         this.camera.aspect = $('#'+container).width() / $('#'+container).height();
         this.camera.updateProjectionMatrix();
         this.renderer.setSize($('#'+container).width(), $('#'+container).height());
@@ -139,6 +141,7 @@ function Environment(artifacts, textures, width, height, container,x,y,z){
             updateMesh(this.texture, this.wireframe);
         }
 
+        // update the wireframe
         if(data_obj.wireframe || data_obj.wireframe == false){
             this.wireframe = data_obj.wireframe;
             updateMesh(this.texture, this.wireframe);
@@ -163,10 +166,12 @@ function Environment(artifacts, textures, width, height, container,x,y,z){
 
 	}.bind(this);
 
+    //clear function.
     var clearAll = function(){
         clearThree(this.object);
     }.bind(this);
     
+    //clear an object with its children
     var clearThree = function(obj){
         while(obj.children.length > 0){
           clearThree(obj.children[0])
