@@ -6,21 +6,22 @@ function LoadingManager(){
     //show loading animation when the process starts.
     manager.onStart = function(url, itemsLoaded, itemsTotal){
         console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-        $('#loading').attr("hidden", false);
-        $('#datGUI').attr("hidden", true);
+        $('#loading').show();
+        $('#datGUI').hide();
     }.bind(this);
 
     //hide loading animation when loaded
     manager.onLoad = function(){
         console.log("loading complete");
-        $('#loading').attr("hidden",true);
-        $('#datGUI').attr("hidden", false);
+        $('#loading').hide();
+        $('#datGUI').show();
     }.bind(this);
 
     //show loading animation on progress
     manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
         console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-        $('#loading').attr("hidden", false);
+        $('#loading').show();
+        $('#datGUI').hide();
     }.bind(this);
     
     //if there is an error loading the artifact.
