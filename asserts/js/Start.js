@@ -18,7 +18,6 @@ var textures = [
 //Control UI element
 var datGUI = new dat.GUI({ autoPlace: false});
 
-
 //Initial Environment constructor.
 var env =  new Environment( 
     artifacts,

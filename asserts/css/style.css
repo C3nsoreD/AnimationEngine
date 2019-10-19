@@ -16,8 +16,9 @@ canvas{
 
 #loading{
     position: absolute;
-    top: 40%;
-    right: 40%;
-    height: 100px;
     z-index: 90;
+    left: 50%; 
+    top: 35%;
+    height: 20%;
+    transform: translate(-50%,0); 
 }
