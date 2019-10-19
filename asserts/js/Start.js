@@ -43,7 +43,6 @@ var params = {
 
 //ading the artifact switcher
 datGUI.add(params, 'artifact').min(0).max(artifacts.length-1).step(1).onFinishChange(function(){
-    console.log(params.artifact);
     env.swapAvatar(params.artifact);  
 });
 
