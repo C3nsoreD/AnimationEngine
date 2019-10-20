@@ -22,4 +22,14 @@ Before cloning this repo
 1. Type nodemon app to run the application.
 2. Visit the directory http://localhost:7000/ to view the full application.
     
+## Result 
+If you successfully run the project after all the needed components have been installed you will be able to see the following result.
+|<img src="asserts/gitHub-images/project.png" width="400">|<img src="ss/4.png" width="600">|
 
+You can control the projects charateristics using the control panel show below
+|<img src="asserts/gitHub-images/Control-panel.png" width="400">|<img src="ss/4.png" width="600">|
+1. **Artifact** change the animation model 
+2. **Animation** controls the action of the model 
+3. **texture** controls the color of the model
+4. **pause** pause the animation 
+5. **wireframe** show the structure of the model
