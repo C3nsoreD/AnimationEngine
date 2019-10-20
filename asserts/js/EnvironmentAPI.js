@@ -150,13 +150,14 @@ function Environment(artifacts, textures, width, height, container,x,y,z){
     }.bind(this);
 
     var swapAvatar = function(value){
+        //remove current artifact
 		this.scene.remove(this.object);
 
-		//reset previous values
+		//reset the mixers and actions
 		this.mixers = [];
 		this.actions = [];
 
-		//add new avatar
+		//add new artifact
 		//get the fbx Object with its mixture and add it to the scene.
         this.fbxObject = new Artifact(artifacts[value],x,y,z);
         this.mixers = this.fbxObject.mixers;

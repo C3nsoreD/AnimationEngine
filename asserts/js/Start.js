@@ -18,7 +18,6 @@ var textures = [
 //Control UI element
 var datGUI = new dat.GUI({ autoPlace: false});
 
-
 //Initial Environment constructor.
 var env =  new Environment( 
     artifacts,
@@ -27,7 +26,6 @@ var env =  new Environment(
     $('#'+container).height(),
     container,0,-70,0
 );
-
 
 //run the environment.
 env.run();
@@ -43,7 +41,6 @@ var params = {
 
 //ading the artifact switcher
 datGUI.add(params, 'artifact').min(0).max(artifacts.length-1).step(1).onFinishChange(function(){
-    console.log(params.artifact);
     env.swapAvatar(params.artifact);  
 });
 
