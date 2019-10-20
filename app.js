@@ -8,7 +8,7 @@ var app = express();
 app.set('view engine','ejs');
 
 //set middleware like css for this simple file
-app.use(express.static('./asserts'));
+app.use(express.static('./assets'));
 
 app.use(express.static('./node_modules'));
 
