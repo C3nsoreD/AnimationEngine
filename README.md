@@ -14,7 +14,7 @@ This library is used to load fbx file to the web browser, it handles rendering a
 Before cloning this repo
 
 1. Install NodeJs https://nodejs.org/en/
-2. In terminal for mac type, the command npm install nodemon
+2. In terminal for mac type, the command npm install nodemon, this will install a custom library you will use to run the project.
 3. For Windows install VSCode using https://code.visualstudio.com/, type the command npm Install nodemon in its terminal
 4. Type npm install either this will install all the needed dependencies.
 
@@ -24,12 +24,19 @@ Before cloning this repo
     
 ## Result 
 If you successfully run the project after all the needed components have been installed you will be able to see the following result.
-[](assets/gitgub-images/project.png)
+
+<img src="assets/github-images/project.png">
 
 You can control the projects charateristics using the control panel show below
-[](assets/github-images/Control-panel.png)
-1. **Artifact** change the animation model 
+
+<img src="assets/github-images/Control-panel.png" >
+
+1. **Artifact** changes the animation model 
 2. **Animation** controls the action of the model 
 3. **texture** controls the color of the model
-4. **pause** pause the animation 
-5. **wireframe** show the structure of the model
+4. **pause** pauses the animation 
+5. **wireframe** shows the structure of the model
+
+Performence monitoring tool 
+
+<img src="assets/github-images/performence-monitor.png">
