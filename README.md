@@ -24,10 +24,10 @@ Before cloning this repo
     
 ## Result 
 If you successfully run the project after all the needed components have been installed you will be able to see the following result.
-[](asserts/gitgub-images/project.png)
+[](assets/gitgub-images/project.png)
 
 You can control the projects charateristics using the control panel show below
-[](asserts/github-images/Control-panel.png)
+[](assets/github-images/Control-panel.png)
 1. **Artifact** change the animation model 
 2. **Animation** controls the action of the model 
 3. **texture** controls the color of the model
