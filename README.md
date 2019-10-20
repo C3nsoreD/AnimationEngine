@@ -27,9 +27,11 @@ If you successfully run the project after all the needed components have been in
 
 <img src="assets/github-images/project.png">
 
-You can control the projects charateristics using the control panel show below
+You can control the projects settings using the control panel show below
 
 <img src="assets/github-images/Control-panel.png" >
+
+### Control definitions.
 
 1. **Artifact** changes the animation model 
 2. **Animation** controls the action of the model 
@@ -37,6 +39,6 @@ You can control the projects charateristics using the control panel show below
 4. **pause** pauses the animation 
 5. **wireframe** shows the structure of the model
 
-Performence monitoring tool 
+You will be able to monitor how much resources the application consumes by looking at the tool below.
 
 <img src="assets/github-images/performence-monitor.png">
